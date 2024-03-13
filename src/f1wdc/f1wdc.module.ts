@@ -1,7 +1,6 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { DynamicModule, MiddlewareConsumer, Module } from '@nestjs/common';
 import { F1wdcController } from './f1wdc.controller';
 import { F1wdcService } from './f1wdc.service';
-import { ConfigurationModule } from 'configuration/configuration.module';
 import { LoggerMiddleware } from 'src/logger/logger.middleware';
 
 let F1WCD: Record<number, string> = {
@@ -81,12 +80,21 @@ let F1WCD: Record<number, string> = {
   2023: "Max VERSTAPPEN"
 };
 
-@Module({
-  controllers: [F1wdcController],
-  imports: [ConfigurationModule.register(F1WCD)],
-  providers: [F1wdcService]
-})
+@Module({})
 export class F1wdcModule {
+  static register(options: Record<number, string>): DynamicModule {
+    return {
+        module: F1wdcModule,
+        controllers: [F1wdcController],
+        providers: [
+            {
+                provide: F1wdcService,
+                useValue: new F1wdcService(F1WCD),
+            },
+        ],
+    };
+}
+
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).forRoutes(F1wdcController);
   }

@@ -1,11 +1,10 @@
-import { ConfigurationService } from 'configuration/configuration.service';
 import { Controller, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { F1wdcService } from './f1wdc.service';
 
 
 @Controller('f1wdc')
 export class F1wdcController {
-    constructor(private readonly F1wdcService: F1wdcService, private ConfigurationService: ConfigurationService) {}
+    constructor(private readonly F1wdcService: F1wdcService) {}
 
     //example post request: localhost:3000/f1wdc/champion/1977
     @Post('/champion/:year')
@@ -21,6 +20,6 @@ export class F1wdcController {
 
     @Put('/add/:key/:value')
     addValue(@Param('key', ParseIntPipe) key: number, @Param('value') value: string): void {
-      this.ConfigurationService.addValue(key, value);
+      this.F1wdcService.addValue(key, value);
     }
 }
