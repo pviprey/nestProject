@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './logger/logger.middleware';
 import { F1wdcModule } from './f1wdc/f1wdc.module';
+import { MotogpModule } from './motogp/motogp.module';
 
 let f1WorldDriversChampions: Record<number, string> = {
   1950: "Giuseppe FARINA",
@@ -82,7 +83,7 @@ let f1WorldDriversChampions: Record<number, string> = {
 };
 
 @Module({
-  imports: [F1wdcModule.register(f1WorldDriversChampions)],
+  imports: [F1wdcModule.register(f1WorldDriversChampions), MotogpModule],
   controllers: [AppController],
   providers: [AppService],
 })
