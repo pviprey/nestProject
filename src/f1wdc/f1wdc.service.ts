@@ -6,7 +6,7 @@ export class F1wdcService {
     constructor(private championship: Record<number, string>){}
     
     getF1WCD(year: number): string {
-        if(year < 1950 || year > 2023) {
+        if(!this.championship[year]){
           return "Aucun championnat cette année là.";
         }
     
