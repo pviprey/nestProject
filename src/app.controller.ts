@@ -1,10 +1,9 @@
-import { ConfigurationService } from './../configuration/configuration.service';
 import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService, private ConfigurationService: ConfigurationService) {}
+  constructor(private readonly appService: AppService) {}
 
   //example get request: localhost:3000/
   @Get()
