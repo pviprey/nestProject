@@ -3,8 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class F1wdcService {
 
-
-    public F1WCD = {
+    public static F1WCD : Record<number, string> = {
         1950: "Giuseppe FARINA",
         1951: "Juan Manuel FANGIO",
         1952: "Alberto ASCARI",
@@ -86,6 +85,10 @@ export class F1wdcService {
           return "Aucun championnat cette année là.";
         }
     
-        return this.F1WCD[year];
-      }
+        return F1wdcService.F1WCD[year];
+    }
+
+    getAll(): Record<number, string>{
+        return F1wdcService.F1WCD;
+    }
 }

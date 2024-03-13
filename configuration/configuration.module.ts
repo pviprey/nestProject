@@ -3,7 +3,7 @@ import { ConfigurationService } from './configuration.service';
 
 @Module({})
 export class ConfigurationModule {
-    static register(options: Record<string, string>): DynamicModule {
+    static register(options: Record<number, string>): DynamicModule {
         return {
             module: ConfigurationModule,
             providers: [

@@ -1,5 +1,5 @@
 import { ConfigurationService } from 'configuration/configuration.service';
-import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { F1wdcService } from './f1wdc.service';
 
 
@@ -9,7 +9,18 @@ export class F1wdcController {
 
     //example post request: localhost:3000/f1wdc/champion/1977
     @Post('/champion/:year')
-    getF1WCD(@Param('year', ParseIntPipe) year: number): string {
+    postF1WCD(@Param('year', ParseIntPipe) year: number): string {
       return this.F1wdcService.getF1WCD(year);
+    }
+
+    //example get request: localhost:3000/f1wdc/champion
+    @Get('/champions')
+    getF1WCDChampions(): Record<number, string> {
+      return this.F1wdcService.getAll();
+    }
+
+    @Put('/add/:key/:value')
+    addValue(@Param('key', ParseIntPipe) key: number, @Param('value') value: string): void {
+      this.ConfigurationService.addValue(key, value);
     }
 }
